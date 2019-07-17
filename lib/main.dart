@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cchat/chat_page.dart';
+import 'package:cchat/constants/icon.dart';
 
 import 'contact_page.dart';
 import 'discover_page.dart';
@@ -52,6 +53,27 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   final bodyList = [ChatPage(), ContactPage(), DiscoverPage(), MePage()];
 
+  List<int> arr = [1, 4, 2, 6, 9, 5, 62];
+
+  swap(List<int> arr) {
+    List<int> arr1 = arr;
+    int tmp = 0;
+
+    for (int i = 0; i < arr.length; i++) {
+      for (int j = i; j < arr.length; j++) {
+        if (arr1[i] > arr1[j]) {
+          tmp = arr1[i];
+          arr1[i] = arr1[j];
+          arr[j] = tmp;
+        }
+      }
+    }
+    print(arr);
+    print(arr1);
+
+    swap(arr);
+  }
+
   _incrementCounter(int value) {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -60,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter = value;
+//      swap(arr);
     });
   }
 
@@ -74,20 +97,20 @@ class _MyHomePageState extends State<MyHomePage> {
         children: bodyList,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _counter,
+        onTap: _incrementCounter,
+        // 点击里面的按钮的回调函数，参数为当前点击的按钮 index
+        fixedColor: Colors.green,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.chat), title: Text('微信')),
+          BottomNavigationBarItem(icon: Icon(icon.wechat), title: Text('微信')),
           BottomNavigationBarItem(
               icon: Icon(Icons.contacts), title: Text('通讯录')),
           BottomNavigationBarItem(
               icon: Icon(Icons.find_replace), title: Text('发现')),
           BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('我')),
         ],
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _counter,
-        onTap: _incrementCounter,
       ),
     );
   }
 }
-
-
